@@ -14,7 +14,7 @@
 				"fileSystem": "raw-data"
 			},
 			"columnDelimiter": ";",
-			"rowDelimiter": "\r",
+			"rowDelimiter": "\n",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
