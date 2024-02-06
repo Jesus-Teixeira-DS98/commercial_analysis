@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
-			"url": "https://github.com/Jesus-Teixeira-DS98/commercial_analysis/blob/main/Metas.csv",
+			"url": "https://raw.githubusercontent.com/Jesus-Teixeira-DS98/commercial_analysis/main/Metas.csv",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		}
