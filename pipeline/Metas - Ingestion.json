@@ -54,7 +54,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "BaseMetasIngested",
+						"referenceName": "BaseMetasRAW",
 						"type": "DatasetReference"
 					}
 				]
