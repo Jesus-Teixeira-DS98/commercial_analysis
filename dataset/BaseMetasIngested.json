@@ -13,7 +13,8 @@
 				"folderPath": "commercial_analysis/tblMeta",
 				"fileSystem": "raw-data"
 			},
-			"columnDelimiter": ",",
+			"columnDelimiter": ";",
+			"rowDelimiter": "\n",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""

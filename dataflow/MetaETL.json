@@ -16,7 +16,7 @@
 			"transformations": [],
 			"scriptLines": [
 				"source(allowSchemaDrift: true,",
-				"     validateSchema: true,",
+				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> Metas"
 			]
 		}
