@@ -19,7 +19,103 @@
 		},
 		"schema": [
 			{
-				"name": "cdVendedor;jan/17;fev/17;mar/17;abr/17;mai/17;jun/17;jul/17;ago/17;set/17;out/17;nov/17;dez/17;jan/18;fev/18;mar/18;abr/18;mai/18;jun/18;jul/18;ago/18;set/18;out/18;nov/18;dez/18",
+				"name": "cdVendedor",
+				"type": "String"
+			},
+			{
+				"name": "jan/17",
+				"type": "String"
+			},
+			{
+				"name": "fev/17",
+				"type": "String"
+			},
+			{
+				"name": "mar/17",
+				"type": "String"
+			},
+			{
+				"name": "abr/17",
+				"type": "String"
+			},
+			{
+				"name": "mai/17",
+				"type": "String"
+			},
+			{
+				"name": "jun/17",
+				"type": "String"
+			},
+			{
+				"name": "jul/17",
+				"type": "String"
+			},
+			{
+				"name": "ago/17",
+				"type": "String"
+			},
+			{
+				"name": "set/17",
+				"type": "String"
+			},
+			{
+				"name": "out/17",
+				"type": "String"
+			},
+			{
+				"name": "nov/17",
+				"type": "String"
+			},
+			{
+				"name": "dez/17",
+				"type": "String"
+			},
+			{
+				"name": "jan/18",
+				"type": "String"
+			},
+			{
+				"name": "fev/18",
+				"type": "String"
+			},
+			{
+				"name": "mar/18",
+				"type": "String"
+			},
+			{
+				"name": "abr/18",
+				"type": "String"
+			},
+			{
+				"name": "mai/18",
+				"type": "String"
+			},
+			{
+				"name": "jun/18",
+				"type": "String"
+			},
+			{
+				"name": "jul/18",
+				"type": "String"
+			},
+			{
+				"name": "ago/18",
+				"type": "String"
+			},
+			{
+				"name": "set/18",
+				"type": "String"
+			},
+			{
+				"name": "out/18",
+				"type": "String"
+			},
+			{
+				"name": "nov/18",
+				"type": "String"
+			},
+			{
+				"name": "dez/18",
 				"type": "String"
 			}
 		]
