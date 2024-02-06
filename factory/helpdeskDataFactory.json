@@ -1,0 +1,9 @@
+{
+	"name": "helpdeskDataFactory",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "e4109bb7-bc1e-4122-9b14-9115b889b7c6",
+		"tenantId": "a22b48ae-b7e2-4154-b693-f2e478ed1d6a"
+	}
+}
