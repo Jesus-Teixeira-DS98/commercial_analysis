@@ -20,6 +20,59 @@
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "DataEmissao",
+				"type": "String"
+			},
+			{
+				"name": "NFe",
+				"type": "String"
+			},
+			{
+				"name": "cdProduto",
+				"type": "String"
+			},
+			{
+				"name": "Produto",
+				"type": "String"
+			},
+			{
+				"name": "Grupo Produto",
+				"type": "String"
+			},
+			{
+				"name": "Linha Produto",
+				"type": "String"
+			},
+			{
+				"name": "cdVendedor",
+				"type": "String"
+			},
+			{
+				"name": "Vendedor",
+				"type": "String"
+			},
+			{
+				"name": "Supervisor",
+				"type": "String"
+			},
+			{
+				"name": "Gerente",
+				"type": "String"
+			},
+			{
+				"name": "Equipe Vendas",
+				"type": "String"
+			},
+			{
+				"name": "QtdItens",
+				"type": "String"
+			},
+			{
+				"name": "ValorUnitario",
+				"type": "String"
+			}
+		]
 	}
 }

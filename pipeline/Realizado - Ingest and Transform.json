@@ -33,12 +33,170 @@
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
 							"quoteAllText": true,
-							"fileExtension": ".csv"
+							"fileExtension": ".txt"
 						}
 					},
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "DataEmissao",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DataEmissao",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "NFe",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "NFe",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "cdProduto",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "cdProduto",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Produto",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Produto",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Grupo Produto",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Grupo Produto",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Linha Produto",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Linha Produto",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "cdVendedor",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "cdVendedor",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Vendedor",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Vendedor",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Supervisor",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Supervisor",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Gerente",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Gerente",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Equipe Vendas",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Equipe Vendas",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "QtdItens",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "QtdItens",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ValorUnitario",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ValorUnitario",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
