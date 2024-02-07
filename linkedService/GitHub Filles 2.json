@@ -1,0 +1,12 @@
+{
+	"name": "GitHub Filles 2",
+	"properties": {
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://raw.githubusercontent.com/Jesus-Teixeira-DS98/commercial_analysis/main/Vendas.csv",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
