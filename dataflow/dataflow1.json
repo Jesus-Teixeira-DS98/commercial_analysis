@@ -1,0 +1,51 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "MetasCSVRaw",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          cdVendedor as string,",
+				"          {jan/17} as string,",
+				"          {fev/17} as string,",
+				"          {mar/17} as string,",
+				"          {abr/17} as string,",
+				"          {mai/17} as string,",
+				"          {jun/17} as string,",
+				"          {jul/17} as string,",
+				"          {ago/17} as string,",
+				"          {set/17} as string,",
+				"          {out/17} as string,",
+				"          {nov/17} as string,",
+				"          {dez/17} as string,",
+				"          {jan/18} as string,",
+				"          {fev/18} as string,",
+				"          {mar/18} as string,",
+				"          {abr/18} as string,",
+				"          {mai/18} as string,",
+				"          {jun/18} as string,",
+				"          {jul/18} as string,",
+				"          {ago/18} as string,",
+				"          {set/18} as string,",
+				"          {out/18} as string,",
+				"          {nov/18} as string,",
+				"          {dez/18} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1"
+			]
+		}
+	}
+}
