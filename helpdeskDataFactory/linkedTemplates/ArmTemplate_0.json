@@ -185,6 +185,31 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/CargaParquet1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Data Lake",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "commercial_analysis/fMetas",
+						"fileSystem": "transformed-data"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Data Lake')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/MetasCSVRaw')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -315,31 +340,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/CargaParquet1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Data Lake",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "commercial_analysis/fMetas",
-						"fileSystem": "transformed-data"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Data Lake')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/fMetas')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -389,7 +389,7 @@
 								"referenceName": "fMetas",
 								"type": "DatasetReference"
 							},
-							"name": "CargaDataLake"
+							"name": "sink1"
 						}
 					],
 					"transformations": [
@@ -459,8 +459,7 @@
 						"     preCommands: [],",
 						"     postCommands: [],",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     format: 'parquet') ~> CargaDataLake"
+						"     skipDuplicateMapOutputs: true) ~> sink1"
 					]
 				}
 			},
@@ -560,7 +559,7 @@
 								"parameters": {},
 								"datasetParameters": {
 									"source1": {},
-									"CargaDataLake": {}
+									"sink1": {}
 								}
 							},
 							"staging": {},
