@@ -17,7 +17,7 @@
 		},
 		"Github Files_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://github.com/Jesus-Teixeira-DS98/commercial_analysis/blob/main/Metas.csv"
+			"defaultValue": "https://raw.githubusercontent.com/Jesus-Teixeira-DS98/commercial_analysis/main/Metas.csv"
 		},
 		"containerUri": {
 			"type": "string",

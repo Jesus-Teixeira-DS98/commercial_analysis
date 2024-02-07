@@ -17,7 +17,7 @@
 		},
 		"Github Files_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://github.com/Jesus-Teixeira-DS98/commercial_analysis/blob/main/Metas.csv"
+			"defaultValue": "https://raw.githubusercontent.com/Jesus-Teixeira-DS98/commercial_analysis/main/Metas.csv"
 		}
 	},
 	"variables": {
@@ -57,16 +57,531 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Metas ')]",
+			"name": "[concat(parameters('factoryName'), '/BaseMetas')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Github Files",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation"
+					},
+					"columnDelimiter": ";",
+					"rowDelimiter": "\n",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "cdVendedor",
+						"type": "String"
+					},
+					{
+						"name": "jan/17",
+						"type": "String"
+					},
+					{
+						"name": "fev/17",
+						"type": "String"
+					},
+					{
+						"name": "mar/17",
+						"type": "String"
+					},
+					{
+						"name": "abr/17",
+						"type": "String"
+					},
+					{
+						"name": "mai/17",
+						"type": "String"
+					},
+					{
+						"name": "jun/17",
+						"type": "String"
+					},
+					{
+						"name": "jul/17",
+						"type": "String"
+					},
+					{
+						"name": "ago/17",
+						"type": "String"
+					},
+					{
+						"name": "set/17",
+						"type": "String"
+					},
+					{
+						"name": "out/17",
+						"type": "String"
+					},
+					{
+						"name": "nov/17",
+						"type": "String"
+					},
+					{
+						"name": "dez/17",
+						"type": "String"
+					},
+					{
+						"name": "jan/18",
+						"type": "String"
+					},
+					{
+						"name": "fev/18",
+						"type": "String"
+					},
+					{
+						"name": "mar/18",
+						"type": "String"
+					},
+					{
+						"name": "abr/18",
+						"type": "String"
+					},
+					{
+						"name": "mai/18",
+						"type": "String"
+					},
+					{
+						"name": "jun/18",
+						"type": "String"
+					},
+					{
+						"name": "jul/18",
+						"type": "String"
+					},
+					{
+						"name": "ago/18",
+						"type": "String"
+					},
+					{
+						"name": "set/18",
+						"type": "String"
+					},
+					{
+						"name": "out/18",
+						"type": "String"
+					},
+					{
+						"name": "nov/18",
+						"type": "String"
+					},
+					{
+						"name": "dez/18",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Github Files')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MetasCSVRaw')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Data Lake",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "metas.csv",
+						"folderPath": "commercial_analysis/tblMeta",
+						"fileSystem": "raw-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "cdVendedor",
+						"type": "String"
+					},
+					{
+						"name": "jan/17",
+						"type": "String"
+					},
+					{
+						"name": "fev/17",
+						"type": "String"
+					},
+					{
+						"name": "mar/17",
+						"type": "String"
+					},
+					{
+						"name": "abr/17",
+						"type": "String"
+					},
+					{
+						"name": "mai/17",
+						"type": "String"
+					},
+					{
+						"name": "jun/17",
+						"type": "String"
+					},
+					{
+						"name": "jul/17",
+						"type": "String"
+					},
+					{
+						"name": "ago/17",
+						"type": "String"
+					},
+					{
+						"name": "set/17",
+						"type": "String"
+					},
+					{
+						"name": "out/17",
+						"type": "String"
+					},
+					{
+						"name": "nov/17",
+						"type": "String"
+					},
+					{
+						"name": "dez/17",
+						"type": "String"
+					},
+					{
+						"name": "jan/18",
+						"type": "String"
+					},
+					{
+						"name": "fev/18",
+						"type": "String"
+					},
+					{
+						"name": "mar/18",
+						"type": "String"
+					},
+					{
+						"name": "abr/18",
+						"type": "String"
+					},
+					{
+						"name": "mai/18",
+						"type": "String"
+					},
+					{
+						"name": "jun/18",
+						"type": "String"
+					},
+					{
+						"name": "jul/18",
+						"type": "String"
+					},
+					{
+						"name": "ago/18",
+						"type": "String"
+					},
+					{
+						"name": "set/18",
+						"type": "String"
+					},
+					{
+						"name": "out/18",
+						"type": "String"
+					},
+					{
+						"name": "nov/18",
+						"type": "String"
+					},
+					{
+						"name": "dez/18",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Data Lake')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CargaParquet1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Data Lake",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "commercial_analysis/fMetas",
+						"fileSystem": "transformed-data"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Data Lake')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/fMetas')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Data Lake",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "commercial_analysis/fMetas",
+						"fileSystem": "transformed-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Data Lake')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "MetasCSVRaw",
+								"type": "DatasetReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "fMetas",
+								"type": "DatasetReference"
+							},
+							"name": "CargaDataLake"
+						}
+					],
+					"transformations": [
+						{
+							"name": "unpivot1"
+						},
+						{
+							"name": "derivedColumn1"
+						},
+						{
+							"name": "derivedColumn2"
+						},
+						{
+							"name": "select1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          cdVendedor as string,",
+						"          {jan/17} as string,",
+						"          {fev/17} as string,",
+						"          {mar/17} as string,",
+						"          {abr/17} as string,",
+						"          {mai/17} as string,",
+						"          {jun/17} as string,",
+						"          {jul/17} as string,",
+						"          {ago/17} as string,",
+						"          {set/17} as string,",
+						"          {out/17} as string,",
+						"          {nov/17} as string,",
+						"          {dez/17} as string,",
+						"          {jan/18} as string,",
+						"          {fev/18} as string,",
+						"          {mar/18} as string,",
+						"          {abr/18} as string,",
+						"          {mai/18} as string,",
+						"          {jun/18} as string,",
+						"          {jul/18} as string,",
+						"          {ago/18} as string,",
+						"          {set/18} as string,",
+						"          {out/18} as string,",
+						"          {nov/18} as string,",
+						"          {dez/18} as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> source1",
+						"source1 unpivot(output(",
+						"          Date as string,",
+						"          {Valor Meta} as string",
+						"     ),",
+						"     ungroupBy(cdVendedor),",
+						"     lateral: false,",
+						"     ignoreNullPivots: false) ~> unpivot1",
+						"unpivot1 derive({Valor Meta Clean} = replace({Valor Meta}, 'R$', '')) ~> derivedColumn1",
+						"derivedColumn1 derive({Valor Meta Clean} = replace({Valor Meta Clean}, '.', ',')) ~> derivedColumn2",
+						"derivedColumn2 select(mapColumn(",
+						"          cdVendedor,",
+						"          Date,",
+						"          {Valor Meta } = {Valor Meta Clean}",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select1",
+						"select1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     format: 'parquet') ~> CargaDataLake"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/MetasCSVRaw')]",
+				"[concat(variables('factoryId'), '/datasets/fMetas')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Metas - Ingestion')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "BaseMetas",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "MetasCSVRaw",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "Data flow1",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "Copy data1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflow1",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"source1": {},
+									"CargaDataLake": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/BaseMetas')]",
+				"[concat(variables('factoryId'), '/datasets/MetasCSVRaw')]",
+				"[concat(variables('factoryId'), '/dataflows/dataflow1')]"
+			]
 		}
 	]
 }
