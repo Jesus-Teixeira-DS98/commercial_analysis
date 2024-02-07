@@ -1,0 +1,20 @@
+{
+	"name": "CargaParquet1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Data Lake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "commercial_analysis/fMetas",
+				"fileSystem": "transformed-data"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

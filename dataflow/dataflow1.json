@@ -12,7 +12,15 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "CargaParquet1",
+						"type": "DatasetReference"
+					},
+					"name": "CargaDataLake"
+				}
+			],
 			"transformations": [
 				{
 					"name": "unpivot1"
@@ -24,7 +32,7 @@
 					"name": "derivedColumn2"
 				},
 				{
-					"name": "derivedColumn3"
+					"name": "select1"
 				}
 			],
 			"scriptLines": [
@@ -67,7 +75,21 @@
 				"     ignoreNullPivots: false) ~> unpivot1",
 				"unpivot1 derive({Valor Meta Clean} = replace({Valor Meta}, 'R$', '')) ~> derivedColumn1",
 				"derivedColumn1 derive({Valor Meta Clean} = replace({Valor Meta Clean}, '.', ',')) ~> derivedColumn2",
-				"derivedColumn2 derive() ~> derivedColumn3"
+				"derivedColumn2 select(mapColumn(",
+				"          cdVendedor,",
+				"          Date,",
+				"          {Valor Meta } = {Valor Meta Clean}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> CargaDataLake"
 			]
 		}
 	}
