@@ -13,7 +13,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "unpivot1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          cdVendedor as string,",
@@ -44,7 +48,14 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 unpivot(output(",
+				"          Date as string,",
+				"          {Valor Meta} as string",
+				"     ),",
+				"     ungroupBy(cdVendedor),",
+				"     lateral: false,",
+				"     ignoreNullPivots: false) ~> unpivot1"
 			]
 		}
 	}
