@@ -1,9 +1,9 @@
 {
-	"name": "Metas - Ingestion",
+	"name": "Metas - Ingest and transform",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "Ingest data",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -60,11 +60,11 @@
 				]
 			},
 			{
-				"name": "Data flow1",
+				"name": "transform",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
-						"activity": "Copy data1",
+						"activity": "Ingest data",
 						"dependencyConditions": [
 							"Succeeded"
 						]

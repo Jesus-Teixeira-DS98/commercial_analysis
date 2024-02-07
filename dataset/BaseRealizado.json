@@ -1,0 +1,27 @@
+{
+	"name": "BaseRealizado",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "GitHub Filles 2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			},
+			"columnDelimiter": ";",
+			"rowDelimiter": "\n",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "DataEmissao;NFe;cdProduto;Produto;Grupo Produto;Linha Produto;cdVendedor;Vendedor;Supervisor;Gerente;Equipe Vendas;QtdItens;ValorUnitario",
+				"type": "String"
+			}
+		]
+	}
+}
