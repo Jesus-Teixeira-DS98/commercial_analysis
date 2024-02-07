@@ -16,6 +16,15 @@
 			"transformations": [
 				{
 					"name": "unpivot1"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "derivedColumn3"
 				}
 			],
 			"scriptLines": [
@@ -55,7 +64,10 @@
 				"     ),",
 				"     ungroupBy(cdVendedor),",
 				"     lateral: false,",
-				"     ignoreNullPivots: false) ~> unpivot1"
+				"     ignoreNullPivots: false) ~> unpivot1",
+				"unpivot1 derive({Valor Meta Clean} = replace({Valor Meta}, 'R$', '')) ~> derivedColumn1",
+				"derivedColumn1 derive({Valor Meta Clean} = replace({Valor Meta Clean}, '.', ',')) ~> derivedColumn2",
+				"derivedColumn2 derive() ~> derivedColumn3"
 			]
 		}
 	}
