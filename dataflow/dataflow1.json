@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "CargaParquet1",
+						"referenceName": "fMetas",
 						"type": "DatasetReference"
 					},
 					"name": "CargaDataLake"
@@ -84,12 +84,12 @@
 				"     skipDuplicateMapOutputs: true) ~> select1",
 				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     format: 'parquet',",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> CargaDataLake"
+				"     skipDuplicateMapOutputs: true,",
+				"     format: 'parquet') ~> CargaDataLake"
 			]
 		}
 	}
