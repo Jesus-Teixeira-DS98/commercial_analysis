@@ -18,7 +18,7 @@
 						"referenceName": "fMetas",
 						"type": "DatasetReference"
 					},
-					"name": "CargaDataLake"
+					"name": "sink1"
 				}
 			],
 			"transformations": [
@@ -88,8 +88,7 @@
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     format: 'parquet') ~> CargaDataLake"
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
