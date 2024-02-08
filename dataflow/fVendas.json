@@ -57,7 +57,7 @@
 				"     skipDuplicateMapOutputs: true) ~> select",
 				"select sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     partitionFileNames:[''],",
+				"     partitionFileNames:['fVendas.csv'],",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
