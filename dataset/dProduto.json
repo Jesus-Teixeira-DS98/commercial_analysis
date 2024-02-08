@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "dProduto.csv",
 				"folderPath": "commercial_analysis/dProduto",
 				"fileSystem": "transformed-data"
 			},
