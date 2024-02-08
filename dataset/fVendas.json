@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "fVendas.csv",
 				"folderPath": "commercial_analysis/fVendas",
 				"fileSystem": "transformed-data"
 			},
