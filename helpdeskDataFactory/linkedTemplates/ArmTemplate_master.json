@@ -19,6 +19,10 @@
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com/Jesus-Teixeira-DS98/commercial_analysis/main/Metas.csv"
 		},
+		"GitHub Filles 2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com/Jesus-Teixeira-DS98/commercial_analysis/main/Vendas.csv"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -54,6 +58,9 @@
 					},
 					"Github Files_properties_typeProperties_url": {
 						"value": "[parameters('Github Files_properties_typeProperties_url')]"
+					},
+					"GitHub Filles 2_properties_typeProperties_url": {
+						"value": "[parameters('GitHub Filles 2_properties_typeProperties_url')]"
 					}
 				}
 			},

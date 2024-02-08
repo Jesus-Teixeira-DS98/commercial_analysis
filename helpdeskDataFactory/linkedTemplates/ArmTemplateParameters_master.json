@@ -14,6 +14,9 @@
 		"Github Files_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com/Jesus-Teixeira-DS98/commercial_analysis/main/Metas.csv"
 		},
+		"GitHub Filles 2_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/Jesus-Teixeira-DS98/commercial_analysis/main/Vendas.csv"
+		},
 		"containerUri": {
 			"value": ""
 		},
