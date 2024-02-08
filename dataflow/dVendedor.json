@@ -1,0 +1,91 @@
+{
+	"name": "dVendedor",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "RealizadoCSVRAW",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dVendedor",
+						"type": "DatasetReference"
+					},
+					"name": "sink1",
+					"rejectedDataLinkedService": {
+						"referenceName": "Data Lake",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "select1"
+				},
+				{
+					"name": "aggregate1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          DataEmissao as string,",
+				"          NFe as string,",
+				"          cdProduto as string,",
+				"          Produto as string,",
+				"          {Grupo Produto} as string,",
+				"          {Linha Produto} as string,",
+				"          cdVendedor as string,",
+				"          Vendedor as string,",
+				"          Supervisor as string,",
+				"          Gerente as string,",
+				"          {Equipe Vendas} as string,",
+				"          QtdItens as string,",
+				"          ValorUnitario as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     partitionBy('hash', 1)) ~> source1",
+				"source1 select(mapColumn(",
+				"          cdVendedor,",
+				"          Vendedor,",
+				"          Supervisor,",
+				"          Gerente,",
+				"          {Equipe Vendas}",
+				"     ),",
+				"     partitionBy('hash', 1),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 aggregate(groupBy(cdVendedor,",
+				"          Vendedor,",
+				"          Supervisor,",
+				"          Gerente,",
+				"          {Equipe Vendas}),",
+				"     Count = count(cdVendedor)) ~> aggregate1",
+				"aggregate1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['dVendedor.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          cdVendedor,",
+				"          Vendedor,",
+				"          Supervisor,",
+				"          Gerente,",
+				"          {Equipe Vendas}",
+				"     ),",
+				"     partitionBy('hash', 1)) ~> sink1"
+			]
+		}
+	}
+}

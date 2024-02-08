@@ -1,0 +1,23 @@
+{
+	"name": "dVendedor",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Data Lake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "commercial_analysis/dVendedor",
+				"fileSystem": "transformed-data"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
