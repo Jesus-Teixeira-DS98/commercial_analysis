@@ -1,0 +1,37 @@
+{
+	"name": "AzureSqlTable2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Azure SQL DW",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "cdVendedor",
+				"type": "varchar"
+			},
+			{
+				"name": "Vendedor",
+				"type": "varchar"
+			},
+			{
+				"name": "Supervisor",
+				"type": "varchar"
+			},
+			{
+				"name": "Gerente",
+				"type": "varchar"
+			},
+			{
+				"name": "Equipe_Vendas",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "dVendedor"
+		}
+	}
+}

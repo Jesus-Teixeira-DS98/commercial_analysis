@@ -1,0 +1,45 @@
+{
+	"name": "dVendedortoDW",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Data Lake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dVendedor.csv",
+				"folderPath": "commercial_analysis/dVendedor",
+				"fileSystem": "transformed-data"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "cdVendedor",
+				"type": "String"
+			},
+			{
+				"name": "Vendedor",
+				"type": "String"
+			},
+			{
+				"name": "Supervisor",
+				"type": "String"
+			},
+			{
+				"name": "Gerente",
+				"type": "String"
+			},
+			{
+				"name": "Equipe Vendas",
+				"type": "String"
+			}
+		]
+	}
+}
