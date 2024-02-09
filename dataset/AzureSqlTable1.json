@@ -27,7 +27,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "dVendedor"
+			"table": "dProduto"
 		}
 	}
 }
