@@ -1,0 +1,49 @@
+{
+	"name": "fVendastoDW",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Data Lake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "fVendas.csv",
+				"folderPath": "commercial_analysis/fVendas",
+				"fileSystem": "transformed-data"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "DataEmissao",
+				"type": "String"
+			},
+			{
+				"name": "NFe",
+				"type": "String"
+			},
+			{
+				"name": "cdProduto",
+				"type": "String"
+			},
+			{
+				"name": "cdVendedor",
+				"type": "String"
+			},
+			{
+				"name": "QtdItens",
+				"type": "String"
+			},
+			{
+				"name": "ValorUnitario",
+				"type": "String"
+			}
+		]
+	}
+}

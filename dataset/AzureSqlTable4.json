@@ -1,0 +1,41 @@
+{
+	"name": "AzureSqlTable4",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Azure SQL DW",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "DataEmissao",
+				"type": "varchar"
+			},
+			{
+				"name": "Nfe",
+				"type": "varchar"
+			},
+			{
+				"name": "cdProduto",
+				"type": "varchar"
+			},
+			{
+				"name": "cdVendedor",
+				"type": "varchar"
+			},
+			{
+				"name": "QtdItens",
+				"type": "varchar"
+			},
+			{
+				"name": "ValorUnitario",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "fVendas"
+		}
+	}
+}
