@@ -11,17 +11,21 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'Data Lake'"
 		},
+		"Azure SQL DW_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Azure SQL DW'"
+		},
 		"Data Lake_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://helpdeskazure1998.dfs.core.windows.net/"
 		},
-		"Github Files_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://raw.githubusercontent.com/Jesus-Teixeira-DS98/commercial_analysis/main/Metas.csv"
-		},
 		"GitHub Filles 2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com/Jesus-Teixeira-DS98/commercial_analysis/main/Vendas.csv"
+		},
+		"Github Files_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com/Jesus-Teixeira-DS98/commercial_analysis/main/Metas.csv"
 		}
 	},
 	"variables": {
@@ -46,6 +50,21 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/GitHub Filles 2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('GitHub Filles 2_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Github Files')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -61,16 +80,14 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/GitHub Filles 2')]",
+			"name": "[concat(parameters('factoryName'), '/Azure SQL DW')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"type": "HttpServer",
+				"type": "AzureSqlDatabase",
 				"typeProperties": {
-					"url": "[parameters('GitHub Filles 2_properties_typeProperties_url')]",
-					"enableServerCertificateValidation": true,
-					"authenticationType": "Anonymous"
+					"connectionString": "[parameters('Azure SQL DW_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -201,6 +218,86 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/Github Files')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/BaseRealizado')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "GitHub Filles 2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation"
+					},
+					"columnDelimiter": ";",
+					"rowDelimiter": "\n",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "DataEmissao",
+						"type": "String"
+					},
+					{
+						"name": "NFe",
+						"type": "String"
+					},
+					{
+						"name": "cdProduto",
+						"type": "String"
+					},
+					{
+						"name": "Produto",
+						"type": "String"
+					},
+					{
+						"name": "Grupo Produto",
+						"type": "String"
+					},
+					{
+						"name": "Linha Produto",
+						"type": "String"
+					},
+					{
+						"name": "cdVendedor",
+						"type": "String"
+					},
+					{
+						"name": "Vendedor",
+						"type": "String"
+					},
+					{
+						"name": "Supervisor",
+						"type": "String"
+					},
+					{
+						"name": "Gerente",
+						"type": "String"
+					},
+					{
+						"name": "Equipe Vendas",
+						"type": "String"
+					},
+					{
+						"name": "QtdItens",
+						"type": "String"
+					},
+					{
+						"name": "ValorUnitario",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/GitHub Filles 2')]"
 			]
 		},
 		{
@@ -359,114 +456,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/fMetas')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Data Lake",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "commercial_analysis/fMetas",
-						"fileSystem": "transformed-data"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Data Lake')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/BaseRealizado')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "GitHub Filles 2",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "HttpServerLocation"
-					},
-					"columnDelimiter": ";",
-					"rowDelimiter": "\n",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "DataEmissao",
-						"type": "String"
-					},
-					{
-						"name": "NFe",
-						"type": "String"
-					},
-					{
-						"name": "cdProduto",
-						"type": "String"
-					},
-					{
-						"name": "Produto",
-						"type": "String"
-					},
-					{
-						"name": "Grupo Produto",
-						"type": "String"
-					},
-					{
-						"name": "Linha Produto",
-						"type": "String"
-					},
-					{
-						"name": "cdVendedor",
-						"type": "String"
-					},
-					{
-						"name": "Vendedor",
-						"type": "String"
-					},
-					{
-						"name": "Supervisor",
-						"type": "String"
-					},
-					{
-						"name": "Gerente",
-						"type": "String"
-					},
-					{
-						"name": "Equipe Vendas",
-						"type": "String"
-					},
-					{
-						"name": "QtdItens",
-						"type": "String"
-					},
-					{
-						"name": "ValorUnitario",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/GitHub Filles 2')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/RealizadoCSVRAW')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -550,7 +539,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/fVendas')]",
+			"name": "[concat(parameters('factoryName'), '/dProduto')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -563,8 +552,8 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "fVendas.csv",
-						"folderPath": "commercial_analysis/fVendas",
+						"fileName": "dProduto.csv",
+						"folderPath": "commercial_analysis/dProduto",
 						"fileSystem": "transformed-data"
 					},
 					"columnDelimiter": ",",
@@ -607,7 +596,64 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/dProduto')]",
+			"name": "[concat(parameters('factoryName'), '/fMetas')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Data Lake",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "commercial_analysis/fMetas",
+						"fileSystem": "transformed-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Data Lake')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/fVendas')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Data Lake",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "fVendas.csv",
+						"folderPath": "commercial_analysis/fVendas",
+						"fileSystem": "transformed-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Data Lake')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dProdutotoDW')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -629,807 +675,287 @@
 					"firstRowAsHeader": true,
 					"quoteChar": "\""
 				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Data Lake')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "MetasCSVRaw",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "fMetas",
-								"type": "DatasetReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [
-						{
-							"name": "unpivot1"
-						},
-						{
-							"name": "derivedColumn1"
-						},
-						{
-							"name": "derivedColumn2"
-						},
-						{
-							"name": "select1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          cdVendedor as string,",
-						"          {jan/17} as string,",
-						"          {fev/17} as string,",
-						"          {mar/17} as string,",
-						"          {abr/17} as string,",
-						"          {mai/17} as string,",
-						"          {jun/17} as string,",
-						"          {jul/17} as string,",
-						"          {ago/17} as string,",
-						"          {set/17} as string,",
-						"          {out/17} as string,",
-						"          {nov/17} as string,",
-						"          {dez/17} as string,",
-						"          {jan/18} as string,",
-						"          {fev/18} as string,",
-						"          {mar/18} as string,",
-						"          {abr/18} as string,",
-						"          {mai/18} as string,",
-						"          {jun/18} as string,",
-						"          {jul/18} as string,",
-						"          {ago/18} as string,",
-						"          {set/18} as string,",
-						"          {out/18} as string,",
-						"          {nov/18} as string,",
-						"          {dez/18} as string",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false) ~> source1",
-						"source1 unpivot(output(",
-						"          Date as string,",
-						"          {Valor Meta} as string",
-						"     ),",
-						"     ungroupBy(cdVendedor),",
-						"     lateral: false,",
-						"     ignoreNullPivots: false) ~> unpivot1",
-						"unpivot1 derive({Valor Meta Clean} = replace({Valor Meta}, 'R$', '')) ~> derivedColumn1",
-						"derivedColumn1 derive({Valor Meta Clean} = replace({Valor Meta Clean}, '.', ',')) ~> derivedColumn2",
-						"derivedColumn2 select(mapColumn(",
-						"          cdVendedor,",
-						"          Date,",
-						"          {Valor Meta } = {Valor Meta Clean}",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> select1",
-						"select1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     partitionFileNames:['fMetas.csv'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> sink1"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/MetasCSVRaw')]",
-				"[concat(variables('factoryId'), '/datasets/fMetas')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/fVendas')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "RealizadoCSVRAW",
-								"type": "DatasetReference"
-							},
-							"name": "TblVendas"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "fVendas",
-								"type": "DatasetReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [
-						{
-							"name": "select"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          DataEmissao as string,",
-						"          NFe as string,",
-						"          cdProduto as string,",
-						"          Produto as string,",
-						"          {Grupo Produto} as string,",
-						"          {Linha Produto} as string,",
-						"          cdVendedor as string,",
-						"          Vendedor as string,",
-						"          Supervisor as string,",
-						"          Gerente as string,",
-						"          {Equipe Vendas} as string,",
-						"          QtdItens as string,",
-						"          ValorUnitario as string",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false) ~> TblVendas",
-						"TblVendas select(mapColumn(",
-						"          DataEmissao,",
-						"          NFe,",
-						"          cdProduto,",
-						"          cdVendedor,",
-						"          QtdItens,",
-						"          ValorUnitario",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> select",
-						"select sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     partitionFileNames:['fVendas.csv'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> sink1"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/RealizadoCSVRAW')]",
-				"[concat(variables('factoryId'), '/datasets/fVendas')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dVendedor')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "RealizadoCSVRAW",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "dVendedor",
-								"type": "DatasetReference"
-							},
-							"name": "sink1",
-							"rejectedDataLinkedService": {
-								"referenceName": "Data Lake",
-								"type": "LinkedServiceReference"
-							}
-						}
-					],
-					"transformations": [
-						{
-							"name": "select1"
-						},
-						{
-							"name": "aggregate1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          DataEmissao as string,",
-						"          NFe as string,",
-						"          cdProduto as string,",
-						"          Produto as string,",
-						"          {Grupo Produto} as string,",
-						"          {Linha Produto} as string,",
-						"          cdVendedor as string,",
-						"          Vendedor as string,",
-						"          Supervisor as string,",
-						"          Gerente as string,",
-						"          {Equipe Vendas} as string,",
-						"          QtdItens as string,",
-						"          ValorUnitario as string",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     partitionBy('hash', 1)) ~> source1",
-						"source1 select(mapColumn(",
-						"          cdVendedor,",
-						"          Vendedor,",
-						"          Supervisor,",
-						"          Gerente,",
-						"          {Equipe Vendas}",
-						"     ),",
-						"     partitionBy('hash', 1),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> select1",
-						"select1 aggregate(groupBy(cdVendedor,",
-						"          Vendedor,",
-						"          Supervisor,",
-						"          Gerente,",
-						"          {Equipe Vendas}),",
-						"     Count = count(cdVendedor)) ~> aggregate1",
-						"aggregate1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     partitionFileNames:['dVendedor.csv'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     mapColumn(",
-						"          cdVendedor,",
-						"          Vendedor,",
-						"          Supervisor,",
-						"          Gerente,",
-						"          {Equipe Vendas}",
-						"     ),",
-						"     partitionBy('hash', 1)) ~> sink1"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/RealizadoCSVRAW')]",
-				"[concat(variables('factoryId'), '/datasets/dVendedor')]",
-				"[concat(variables('factoryId'), '/linkedServices/Data Lake')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dProdutos')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "RealizadoCSVRAW",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "dProduto",
-								"type": "DatasetReference"
-							},
-							"name": "sink1",
-							"rejectedDataLinkedService": {
-								"referenceName": "Data Lake",
-								"type": "LinkedServiceReference"
-							}
-						}
-					],
-					"transformations": [
-						{
-							"name": "select1"
-						},
-						{
-							"name": "aggregate1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          DataEmissao as string,",
-						"          NFe as string,",
-						"          cdProduto as string,",
-						"          Produto as string,",
-						"          {Grupo Produto} as string,",
-						"          {Linha Produto} as string,",
-						"          cdVendedor as string,",
-						"          Vendedor as string,",
-						"          Supervisor as string,",
-						"          Gerente as string,",
-						"          {Equipe Vendas} as string,",
-						"          QtdItens as string,",
-						"          ValorUnitario as string",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     partitionBy('hash', 1)) ~> source1",
-						"source1 select(mapColumn(",
-						"          cdProduto,",
-						"          Produto,",
-						"          {Grupo Produto},",
-						"          {Linha Produto}",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> select1",
-						"select1 aggregate(groupBy(cdProduto,",
-						"          Produto,",
-						"          {Grupo Produto},",
-						"          {Linha Produto}),",
-						"     Count = count({cdProduto}),",
-						"     partitionBy('hash', 1)) ~> aggregate1",
-						"aggregate1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     partitionFileNames:['dProduto.csv'],",
-						"     truncate: true,",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     mapColumn(",
-						"          cdProduto,",
-						"          Produto,",
-						"          {Grupo Produto},",
-						"          {Linha Produto}",
-						"     ),",
-						"     partitionBy('hash', 1)) ~> sink1"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/RealizadoCSVRAW')]",
-				"[concat(variables('factoryId'), '/datasets/dProduto')]",
-				"[concat(variables('factoryId'), '/linkedServices/Data Lake')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Metas - Ingest and transform')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
+				"schema": [
 					{
-						"name": "Ingest data",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "HttpReadSettings",
-									"requestMethod": "GET"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "BaseMetas",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "MetasCSVRaw",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
+						"name": "cdProduto",
+						"type": "String"
 					},
 					{
-						"name": "transform",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [
-							{
-								"activity": "Ingest data",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "dataflow1",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"source1": {},
-									"sink1": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
+						"name": "Produto",
+						"type": "String"
+					},
+					{
+						"name": "Grupo Produto",
+						"type": "String"
+					},
+					{
+						"name": "Linha Produto",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Data Lake')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure SQL DW",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "cdProduto",
+						"type": "varchar"
+					},
+					{
+						"name": "Produto",
+						"type": "varchar"
+					},
+					{
+						"name": "Grupo_Produto",
+						"type": "varchar"
+					},
+					{
+						"name": "Linha_Produto",
+						"type": "varchar"
 					}
 				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "dProduto"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/BaseMetas')]",
-				"[concat(variables('factoryId'), '/datasets/MetasCSVRaw')]",
-				"[concat(variables('factoryId'), '/dataflows/dataflow1')]"
+				"[concat(variables('factoryId'), '/linkedServices/Azure SQL DW')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Realizado - Ingest and Transform')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/dVendedortoDW')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
-					{
-						"name": "Realizado Ingestion",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "HttpReadSettings",
-									"requestMethod": "GET"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "DataEmissao",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "DataEmissao",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "NFe",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "NFe",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "cdProduto",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "cdProduto",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Produto",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Produto",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Grupo Produto",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Grupo Produto",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Linha Produto",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Linha Produto",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "cdVendedor",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "cdVendedor",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Vendedor",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Vendedor",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Supervisor",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Supervisor",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Gerente",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Gerente",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Equipe Vendas",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Equipe Vendas",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "QtdItens",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "QtdItens",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "ValorUnitario",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ValorUnitario",
-											"type": "String",
-											"physicalType": "String"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "BaseRealizado",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "RealizadoCSVRAW",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					},
-					{
-						"name": "fVendas to Transformed DL",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [
-							{
-								"activity": "Realizado Ingestion",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "fVendas",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"TblVendas": {},
-									"sink1": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					},
-					{
-						"name": "dVendedor",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [
-							{
-								"activity": "fVendas to Transformed DL",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "dVendedor",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"source1": {},
-									"sink1": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
+				"linkedServiceName": {
+					"referenceName": "Data Lake",
+					"type": "LinkedServiceReference"
 				},
-				"annotations": []
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "dVendedor.csv",
+						"folderPath": "commercial_analysis/dVendedor",
+						"fileSystem": "transformed-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "cdVendedor",
+						"type": "String"
+					},
+					{
+						"name": "Vendedor",
+						"type": "String"
+					},
+					{
+						"name": "Supervisor",
+						"type": "String"
+					},
+					{
+						"name": "Gerente",
+						"type": "String"
+					},
+					{
+						"name": "Equipe Vendas",
+						"type": "String"
+					}
+				]
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/BaseRealizado')]",
-				"[concat(variables('factoryId'), '/datasets/RealizadoCSVRAW')]",
-				"[concat(variables('factoryId'), '/dataflows/fVendas')]",
-				"[concat(variables('factoryId'), '/dataflows/dVendedor')]"
+				"[concat(variables('factoryId'), '/linkedServices/Data Lake')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure SQL DW",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "cdVendedor",
+						"type": "varchar"
+					},
+					{
+						"name": "Vendedor",
+						"type": "varchar"
+					},
+					{
+						"name": "Supervisor",
+						"type": "varchar"
+					},
+					{
+						"name": "Gerente",
+						"type": "varchar"
+					},
+					{
+						"name": "Equipe_Vendas",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "dVendedor"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure SQL DW')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/fMetastoDW')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Data Lake",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "fMetas.csv",
+						"folderPath": "commercial_analysis/fMetas",
+						"fileSystem": "transformed-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "cdVendedor",
+						"type": "String"
+					},
+					{
+						"name": "Date",
+						"type": "String"
+					},
+					{
+						"name": "Valor Meta ",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Data Lake')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable3')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure SQL DW",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "cdVendedor",
+						"type": "varchar"
+					},
+					{
+						"name": "Date",
+						"type": "varchar"
+					},
+					{
+						"name": "Valor_Meta",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "fMetas"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure SQL DW')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/fVendastoDW')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Data Lake",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "fVendas.csv",
+						"folderPath": "commercial_analysis/fVendas",
+						"fileSystem": "transformed-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "DataEmissao",
+						"type": "String"
+					},
+					{
+						"name": "NFe",
+						"type": "String"
+					},
+					{
+						"name": "cdProduto",
+						"type": "String"
+					},
+					{
+						"name": "cdVendedor",
+						"type": "String"
+					},
+					{
+						"name": "QtdItens",
+						"type": "String"
+					},
+					{
+						"name": "ValorUnitario",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Data Lake')]"
 			]
 		}
 	]

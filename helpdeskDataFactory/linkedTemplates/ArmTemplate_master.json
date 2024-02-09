@@ -11,17 +11,21 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'Data Lake'"
 		},
+		"Azure SQL DW_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Azure SQL DW'"
+		},
 		"Data Lake_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://helpdeskazure1998.dfs.core.windows.net/"
 		},
-		"Github Files_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://raw.githubusercontent.com/Jesus-Teixeira-DS98/commercial_analysis/main/Metas.csv"
-		},
 		"GitHub Filles 2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com/Jesus-Teixeira-DS98/commercial_analysis/main/Vendas.csv"
+		},
+		"Github Files_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com/Jesus-Teixeira-DS98/commercial_analysis/main/Metas.csv"
 		},
 		"containerUri": {
 			"type": "string",
@@ -53,18 +57,41 @@
 					"Data Lake_accountKey": {
 						"value": "[parameters('Data Lake_accountKey')]"
 					},
+					"Azure SQL DW_connectionString": {
+						"value": "[parameters('Azure SQL DW_connectionString')]"
+					},
 					"Data Lake_properties_typeProperties_url": {
 						"value": "[parameters('Data Lake_properties_typeProperties_url')]"
 					},
-					"Github Files_properties_typeProperties_url": {
-						"value": "[parameters('Github Files_properties_typeProperties_url')]"
-					},
 					"GitHub Filles 2_properties_typeProperties_url": {
 						"value": "[parameters('GitHub Filles 2_properties_typeProperties_url')]"
+					},
+					"Github Files_properties_typeProperties_url": {
+						"value": "[parameters('Github Files_properties_typeProperties_url')]"
 					}
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "helpdeskDataFactory_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'helpdeskDataFactory_ArmTemplate_0')]"
+			]
 		}
 	]
 }
