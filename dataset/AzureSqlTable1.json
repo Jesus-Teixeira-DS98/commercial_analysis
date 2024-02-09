@@ -1,0 +1,33 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Azure SQL DW",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "cdProduto",
+				"type": "varchar"
+			},
+			{
+				"name": "Produto",
+				"type": "varchar"
+			},
+			{
+				"name": "Grupo_Produto",
+				"type": "varchar"
+			},
+			{
+				"name": "Linha_Produto",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "dVendedor"
+		}
+	}
+}

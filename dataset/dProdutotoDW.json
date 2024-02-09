@@ -1,0 +1,41 @@
+{
+	"name": "dProdutotoDW",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Data Lake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dProduto.csv",
+				"folderPath": "commercial_analysis/dProduto",
+				"fileSystem": "transformed-data"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "cdProduto",
+				"type": "String"
+			},
+			{
+				"name": "Produto",
+				"type": "String"
+			},
+			{
+				"name": "Grupo Produto",
+				"type": "String"
+			},
+			{
+				"name": "Linha Produto",
+				"type": "String"
+			}
+		]
+	}
+}
