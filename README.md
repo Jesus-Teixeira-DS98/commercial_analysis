@@ -21,7 +21,7 @@ Table Vendas:
 
 Grupo de Recursos:
 <p align='center'>
-    <img src = 'images/fVendas.PNG'>
+    <img src = 'images/azure_rg.png'>
 </p>
 
 Obs: A tabela de Vendas está estruturada como uma bigtable, a ideia é aplicar processos de normalização dentro desta tabela para otimizar o storage e criar uma modelagem estrela.
@@ -43,7 +43,7 @@ A equipe de TI implementou com sucesso uma rotina automatizada para extrair diar
 A ferramenta escolhida para fazer a ingestão de dados do end-point web para o Datalake foi o DF, por ser uma ferramenta relativamente barata e escalonável, além de ser No Code.
 
 <p align='center'>
-    <img src = 'images/airbyte_connection.png'>
+    <img src = 'images/azure_ingestion.png'>
 </p>
 
 O processo de implantação e configuração do Data Factory é notavelmente simples. Basta selecionar uma atividade de cópia de dados, na sequencia selecioe a fonte de dados e um destino, e em seguida, basta executar o pipeline com a função debug. Para que aconteça de forma recorrente basta agendar a tarefa no próprio recurso do Azure Data Factory incluindo a definição da periodicidade para a carga de dados. 
@@ -56,7 +56,7 @@ Na camada raw estão armazenados os dados brutos, está é a camada onde ocorre 
 <br><br>
 
 <p align='center'>
-    <img src = 'images/datalake.png'>
+    <img src = 'images/azure_datalake.png'>
 </p>
 
 ### 2.3. Processamento de dados - Azure Data Factory
@@ -64,19 +64,19 @@ O processamento dos dados foi feito dentro do Azure Data Factory, utilizei a fer
 
 Dataflow:
 <p align='center'>
-    <img src = 'images/airflow.png'>
+    <img src = 'images/azure_dataflow.png'>
 </p>
 
 Para acessar o código gerado pelo Data Factory use esse link: https://github.com/Jesus-Teixeira-DS98/commercial_analysis/tree/adf
 <br><br>
 
-### 2.4. Data Serving - Big Query 
+### 2.4. Data Serving - Azure SQL 
 Ao disponibilizar os dados na camada transformed do Datalake são transferidos para o Azure SQL por meio do ADF. Ao disponibilizar os dados dento do DW solicitado o pipeline de dados está completo e pode ser consumido por ferramentas de Dataviz como Power BI.
 <br><br>
 
 Dados dentro das tabelas no Azure SQL:
 <p align='center'>
-    <img src = 'images/big_query.png'>
+    <img src = 'images/azure_sql.png'>
 </p>
 
 
@@ -94,4 +94,4 @@ Dados dentro das tabelas no Azure SQL:
 - Usar Azure Data Vault para aumentar segurança do projeto;
 - Processar dados no Databricks;
 - Implementar regra de carga incremental durante processos de ingestão e carga de dados.
-<br><br>
+<br><b
