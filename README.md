@@ -1,5 +1,5 @@
 # Análise de Vendas
-<b>Alerta:</b> Os dados utilizados nesse projeto estão disponíveis no repositório do github no formato csv. <br><br>
+<b>Obs:</b> Os dados utilizados nesse projeto estão disponíveis no repositório do github no formato csv. <br><br>
 
 # Data pipeline com Azure e Power BI
 Neste projeto utilizei ferramentas do Microsoft Azure para implementar uma arquitetura de dados, desde a extração até a camada de serving, por fim utilizei o Power BI para desenvolver um dashboard com os dados trabalhados ao longo do projeto.
@@ -7,15 +7,21 @@ Neste projeto utilizei ferramentas do Microsoft Azure para implementar uma arqui
 
 ### 1.1. Sobre o Projeto
 O projeto tem como objetivo executar a coleta, limpeza, preparação e modelagem dos dados utilizando ferramentas do Microsoft Azure como Azure DataLake Gen2, Data Factory e Azure SQL. 
+Bases Utilidazadas no projeto e o Grupo de Recurso do azure estão abaixo:
 
 Table Metas:
 <p align='center'>
-    <img src = 'images/modelo_oltp.png'>
+    <img src = 'images/fMetas.PNG'>
 </p>
 
 Table Vendas:
 <p align='center'>
-    <img src = 'images/modelo_estrela.png'>
+    <img src = 'images/fVendas.PNG'>
+</p>
+
+Grupo de Recursos:
+<p align='center'>
+    <img src = 'images/fVendas.PNG'>
 </p>
 
 Obs: A tabela de Vendas está estruturada como uma bigtable, a ideia é aplicar processos de normalização dentro desta tabela para otimizar o storage e criar uma modelagem estrela.
@@ -45,7 +51,7 @@ O processo de implantação e configuração do Data Factory é notavelmente sim
 <br><br>
 
 ### 2.2. Datalake - Azure DataLake Gen 2
-Dentro do datalake foi criado 2 camadas: raw, transfoned. 
+Dentro do datalake foi criado 2 camadas: raw, transformed. 
 Na camada raw estão armazenados os dados brutos, está é a camada onde ocorre a ingestão de dados do Data Factory. Os dados estarão na camada tranformed após passar pelas etapas de limpeza, tratamento e inclusão de regras de negócio, os dados serão carregados nesta camada pelo Data Factory. 
 <br><br>
 
@@ -65,10 +71,10 @@ Para acessar o código gerado pelo Data Factory use esse link: https://github.co
 <br><br>
 
 ### 2.4. Data Serving - Big Query 
-Ao disponibilizar os dados na camada trusted do Datalake esses dados são transferidos para o Big Query por meio do Data Transfer do Big Query. Ao disponibilizar os dados dento do MDW solicitado o pipeline de dados está completo e pode ser consumido por ferramentas de Dataviz como Power BI, Looker e etc.
+Ao disponibilizar os dados na camada transformed do Datalake são transferidos para o Azure SQL por meio do ADF. Ao disponibilizar os dados dento do DW solicitado o pipeline de dados está completo e pode ser consumido por ferramentas de Dataviz como Power BI.
 <br><br>
 
-Dados dentro das tabelas no Big query:
+Dados dentro das tabelas no Azure SQL:
 <p align='center'>
     <img src = 'images/big_query.png'>
 </p>
